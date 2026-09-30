@@ -1,6 +1,6 @@
 # Incremental GitHub delivery queue
 
-Publishing is deferred at the user's request until GitHub access is restored.
+Publishing is authorized once GitHub CLI access is restored.
 These are prepared local branches and drafts, not claims of remote issues or PRs.
 
 | Order | Local branch            | Base                    | Change                                            |

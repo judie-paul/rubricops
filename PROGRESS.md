@@ -23,7 +23,10 @@
   scoring and API permissions; mobile review with no page overflow; unauthenticated
   and cross-origin request rejection. Desktop and mobile screenshots inspected.
 - ESLint, strict TypeScript, Prettier, and the production Next.js build pass.
-- Clean Docker image build succeeds. Compose database migrations and seed succeed.
+- Clean Docker image build succeeds. The persistent Compose app is running at
+  http://localhost:3001. Container browser smoke verifies sign-in, seeded metrics,
+  malformed-input rejection, mobile layout and logout without changing task data.
+  Clean screenshots are saved under docs/screenshots/.
 - Dependency install audit reports zero known vulnerabilities. Prisma's development
   dependency deepmerge-ts is overridden to its patched v8 version; Prisma generation,
   migrations and builds have been exercised with that override.
@@ -32,11 +35,11 @@
 
 ## External status
 
-GitHub publication is deferred at the user's request until access is restored.
-The saved credential returned HTTP 401; the pending device login was cancelled.
-Four incremental branches and matching issue/PR drafts are prepared under
-`docs/github/`. Local main remains at the starter; no remote repository, remote
-CI run, release or hosted deployment is claimed yet.
+GitHub publication is authorized, with incremental issues and PRs as used for
+LabelLint. The saved credential returned HTTP 401; GitHub CLI browser authorization
+is pending. Four incremental branches and matching issue/PR drafts are prepared
+under `docs/github/`. Local main remains at the starter; no remote repository,
+remote CI run, release or hosted deployment is claimed yet.
 
 Supabase, live Upstash and GitHub OAuth require real provider configuration.
 The local runtime uses PostgreSQL and local demo authentication. Hosted setup is

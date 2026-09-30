@@ -5,6 +5,8 @@ queue, two evaluators independently score each response against a fixed rubric,
 reviewers audit sampled work, and admins resolve disagreements. The dashboard
 reports agreement per criterion, reviewer overturns, and time spent evaluating.
 
+![RubricOps evaluation workspace with synthetic demo metrics](docs/screenshots/overview.png)
+
 ## Run locally
 
 Requires Node.js 22.12+ (tested on 24), npm, Docker and Docker Compose.
