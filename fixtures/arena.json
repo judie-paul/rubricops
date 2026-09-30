@@ -1,0 +1,12 @@
+[
+  {
+    "question_id": "arena-fixture-001",
+    "conversation_a": [
+      { "role": "user", "content": "What is a unit test?" },
+      {
+        "role": "assistant",
+        "content": "A unit test checks a small piece of program behavior in isolation."
+      }
+    ]
+  }
+]
