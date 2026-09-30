@@ -32,9 +32,11 @@
 
 ## External status
 
-GitHub publication is requested. The saved GitHub credential returned HTTP 401;
-a browser device authorization was started and requires the user's sign-in.
-No remote repository, remote CI run, release or hosted deployment is claimed yet.
+GitHub publication is deferred at the user's request until access is restored.
+The saved credential returned HTTP 401; the pending device login was cancelled.
+Four incremental branches and matching issue/PR drafts are prepared under
+`docs/github/`. Local main remains at the starter; no remote repository, remote
+CI run, release or hosted deployment is claimed yet.
 
 Supabase, live Upstash and GitHub OAuth require real provider configuration.
 The local runtime uses PostgreSQL and local demo authentication. Hosted setup is
