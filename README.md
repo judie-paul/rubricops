@@ -1,5 +1,7 @@
 # RubricOps
 
+[Repository](https://github.com/judie-paul/rubricops) · [CI checks](https://github.com/judie-paul/rubricops/actions)
+
 An evaluation review platform for teams scoring model responses. Tasks enter a
 queue, two evaluators independently score each response against a fixed rubric,
 reviewers audit sampled work, and admins resolve disagreements. The dashboard

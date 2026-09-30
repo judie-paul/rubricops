@@ -1,7 +1,9 @@
 # Incremental GitHub delivery queue
 
-Publishing is authorized once GitHub CLI access is restored.
-These are prepared local branches and drafts, not claims of remote issues or PRs.
+Repository: https://github.com/judie-paul/rubricops
+
+This directory preserves the staged delivery plan and original issue/PR drafts.
+Actual issues are #1–#4 and matching PRs are #5–#8. See PROGRESS.md for links.
 
 | Order | Local branch            | Base                    | Change                                            |
 | ----- | ----------------------- | ----------------------- | ------------------------------------------------- |
@@ -10,11 +12,10 @@ These are prepared local branches and drafts, not claims of remote issues or PRs
 | 3     | `feat/review-workspace` | `feat/evaluation-core`  | Responsive workspace and browser scenarios        |
 | 4     | `build/local-delivery`  | `feat/review-workspace` | Containers, reproducibility, CI, docs and results |
 
-The local `main` branch still contains the original starter. Each feature branch
-contains its predecessor's commits. This preserves real development history and
-allows one reviewable PR per step, instead of one combined project commit.
+Each feature branch contains its predecessor's commits. The PRs are delivered
+sequentially with merge commits, preserving real development history.
 
-When access returns:
+Delivery procedure (recorded for reproducibility):
 
 1. Confirm the GitHub account and create the `rubricops` repository. Push original
    `main`, then the prepared branches, without force-pushing.

@@ -35,11 +35,23 @@
 
 ## External status
 
-GitHub publication is authorized, with incremental issues and PRs as used for
-LabelLint. The saved credential returned HTTP 401; GitHub CLI browser authorization
-is pending. Four incremental branches and matching issue/PR drafts are prepared
-under `docs/github/`. Local main remains at the starter; no remote repository,
-remote CI run, release or hosted deployment is claimed yet.
+Repository: https://github.com/judie-paul/rubricops
+
+Incremental delivery (linked issues #1–#4):
+
+- [PR #5](https://github.com/judie-paul/rubricops/pull/5): repository standards.
+- [PR #6](https://github.com/judie-paul/rubricops/pull/6): persistent evaluation core.
+- [PR #7](https://github.com/judie-paul/rubricops/pull/7): responsive workspace.
+- [PR #8](https://github.com/judie-paul/rubricops/pull/8): reproducible delivery and CI.
+
+[Full remote verification](https://github.com/judie-paul/rubricops/actions/runs/36770923318)
+passed: lint, typing, formatting, 13 unit/adapter tests, 7 PostgreSQL integration
+tests, production build, 4 Chromium scenarios and Docker image build. GitHub is
+the authority for each PR's current merge/check status and release status.
+The issue/PR drafts in docs/github/ preserve the incremental delivery plan.
+
+GitHub CLI authentication is stored in the system keyring; Git uses the CLI
+credential helper. Future repositories normally reuse this account login.
 
 Supabase, live Upstash and GitHub OAuth require real provider configuration.
 The local runtime uses PostgreSQL and local demo authentication. Hosted setup is
