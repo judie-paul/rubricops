@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { cohensKappa, median, rate, sampled } from '../src/lib/metrics';
+import {
+  agreementByRaterPair,
+  cohensKappa,
+  median,
+  rate,
+  sampled,
+} from '../src/lib/metrics';
 import { normalize } from '../src/lib/ingest';
 import { rubricSchema, validateScores } from '../src/lib/validation';
 import hh from '../fixtures/hh.json';
@@ -105,4 +111,40 @@ describe('rubrics and scoring', () => {
         criteria: [...criteria, ...criteria],
       }).success,
     ).toBe(false));
+});
+
+describe('stable evaluator identities', () => {
+  const evaluation = (userId: string, value: number) => ({
+    userId,
+    scores: { accuracy: value },
+  });
+  it('is invariant to submission order and does not pool different raters', () => {
+    const tasks = [
+      [evaluation('a', 1), evaluation('b', 2)],
+      [evaluation('a', 1), evaluation('b', 2)],
+      [evaluation('b', 1), evaluation('a', 2)],
+      [evaluation('a', 5), evaluation('c', 5)],
+    ];
+    const result = agreementByRaterPair(tasks, 'accuracy');
+    expect(result).toHaveLength(2);
+    expect(result[0].raterIds).toEqual(['a', 'b']);
+    expect(result[0].pairs).toBe(3);
+    expect(result[0].kappa).toBeCloseTo(-0.8);
+    expect(result[1].raterIds).toEqual(['a', 'c']);
+    expect(result[1].kappa).toBeNull();
+    expect(
+      agreementByRaterPair(
+        tasks.map((t) => [...t].reverse()),
+        'accuracy',
+      ),
+    ).toEqual(result);
+  });
+  it('does not produce an agreement row for unpaired or repeated evaluators', () => {
+    expect(
+      agreementByRaterPair(
+        [[], [evaluation('a', 1)], [evaluation('a', 1), evaluation('a', 2)]],
+        'accuracy',
+      ),
+    ).toEqual([]);
+  });
 });

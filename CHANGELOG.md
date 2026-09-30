@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1 — agreement correctness
+
+- Group Cohen's kappa by stable evaluator pair, rubric version, and criterion.
+- Show evaluator names alongside each metric; submission order no longer mixes
+  label marginals, and different pairs are no longer pooled.
+
 ## 0.1.0 — local implementation
 
 - PostgreSQL-backed task ingestion, immutable rubrics, two-evaluator leases,

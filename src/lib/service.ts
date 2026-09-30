@@ -1,6 +1,6 @@
 import { Prisma, type TaskStatus, type Role } from '@prisma/client';
 import { db } from './db';
-import { cohensKappa, median, rate, sampled } from './metrics';
+import { agreementByRaterPair, median, rate, sampled } from './metrics';
 import {
   evaluationSchema,
   reviewSchema,
@@ -270,24 +270,32 @@ export async function snapshot(actor: Actor) {
       : [],
   ]);
   const paired = tasks.filter((t) => t.evaluations.length === 2);
+  const names = new Map(
+    tasks.flatMap((t) =>
+      t.evaluations.map((e) => [e.userId, e.user.name] as const),
+    ),
+  );
   const criteria = rubrics.flatMap((r) =>
-    (r.criteria as Criterion[]).map((c) => {
-      const pairs = paired
+    (r.criteria as Criterion[]).flatMap((c) => {
+      const observations = paired
         .filter((t) => t.rubricId === r.id)
-        .map(
-          (t) =>
-            t.evaluations.map(
-              (e) => (e.scores as Record<string, number>)[c.id],
-            ) as [number, number],
+        .map((t) =>
+          t.evaluations.map((e) => ({
+            userId: e.userId,
+            scores: e.scores as Record<string, number>,
+          })),
         );
-      return {
-        id: `${r.id}:${c.id}`,
+      const groups = agreementByRaterPair(observations, c.id);
+      const rows = groups.length
+        ? groups
+        : [{ raterIds: [], pairs: 0, kappa: null, agreement: null }];
+      return rows.map((group) => ({
+        id: JSON.stringify([r.id, c.id, ...group.raterIds]),
         name: c.name,
         version: r.version,
-        pairs: pairs.length,
-        kappa: cohensKappa(pairs),
-        agreement: rate(pairs.filter(([a, b]) => a === b).length, pairs.length),
-      };
+        ...group,
+        raters: group.raterIds.map((id) => names.get(id) ?? id),
+      }));
     }),
   );
   const audits = tasks

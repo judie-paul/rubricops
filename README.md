@@ -117,7 +117,9 @@ make network calls. Every task retains its source and external ID.
 exports the same metrics as JSON. See [measured results](docs/results.md).
 
 - Cohen's kappa is unweighted and computed from the two original evaluator scores,
-  separately for each rubric version and criterion. Reviewer scores are excluded.
+  separately for each rubric version, criterion, and evaluator pair. Evaluator IDs
+  determine the ordering of each pair, so submission order cannot change the result.
+  Reviewer scores are excluded.
 - Empty pairs and expected agreement of 100% produce `null`, displayed as undefined.
 - Exact agreement is the fraction of paired scores that match.
 - Overturn rate is overturned audits divided by confirm + overturn audits;
