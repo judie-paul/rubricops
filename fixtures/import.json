@@ -1,0 +1,14 @@
+[
+  {
+    "externalId": "example-import-001",
+    "prompt": "Explain what a rubric is in one sentence.",
+    "response": "A rubric is a set of criteria and scoring guidelines used to evaluate work consistently.",
+    "source": "synthetic import example"
+  },
+  {
+    "externalId": "example-import-002",
+    "prompt": "What is 12 multiplied by 8?",
+    "response": "12 multiplied by 8 is 96.",
+    "source": "synthetic import example"
+  }
+]

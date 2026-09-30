@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+enum Role {
+  EVALUATOR
+  REVIEWER
+  ADMIN
+}
+enum TaskStatus {
+  OPEN
+  REVIEW
+  ADJUDICATION
+  DONE
+}
+model User {
+  id String @id
+  email String @unique
+  name String
+  role Role
+  assignments Assignment[]
+  evaluations Evaluation[]
+  reviews Review[]
+}
+model Rubric {
+  id String @id @default(cuid())
+  version Int @unique
+  name String
+  criteria Json
+  publishedAt DateTime @default(now())
+  tasks Task[]
+}
+model Task {
+  id String @id @default(cuid())
+  externalId String @unique
+  prompt String
+  response String
+  source String
+  rubricId String
+  rubric Rubric @relation(fields: [rubricId], references: [id])
+  status TaskStatus @default(OPEN)
+  auditSelected Boolean @default(false)
+  createdAt DateTime @default(now())
+  assignments Assignment[]
+  evaluations Evaluation[]
+  reviews Review[]
+  @@index([status, createdAt])
+}
+model Assignment {
+  id String @id @default(cuid())
+  taskId String
+  task Task @relation(fields: [taskId], references: [id])
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  startedAt DateTime @default(now())
+  expiresAt DateTime
+  completed Boolean @default(false)
+  @@unique([taskId, userId])
+  @@index([expiresAt])
+}
+model Evaluation {
+  id String @id @default(cuid())
+  taskId String
+  task Task @relation(fields: [taskId], references: [id])
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  scores Json
+  rationale String
+  durationMs Int
+  createdAt DateTime @default(now())
+  @@unique([taskId, userId])
+}
+model Review {
+  id String @id @default(cuid())
+  taskId String
+  task Task @relation(fields: [taskId], references: [id])
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  kind String
+  decision String
+  scores Json
+  rationale String
+  createdAt DateTime @default(now())
+  @@unique([taskId, kind])
+}
+model AuditEvent {
+  id String @id @default(cuid())
+  actorId String
+  action String
+  entityId String
+  detail Json
+  createdAt DateTime @default(now())
+}

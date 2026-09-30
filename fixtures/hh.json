@@ -1,0 +1,7 @@
+[
+  {
+    "id": "hh-fixture-001",
+    "chosen": "\n\nHuman: How can I organize my notes?\n\nAssistant: Group notes by topic and give each group a clear title.",
+    "rejected": "A synthetic fixture, not a downloaded dataset record."
+  }
+]
