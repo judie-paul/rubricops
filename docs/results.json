@@ -1,0 +1,40 @@
+{
+  "generatedAt": "2026-09-30T19:53:19.219Z",
+  "command": "npm run results",
+  "source": "Current local database; seed 42 synthetic demo, plus any locally submitted records",
+  "metrics": {
+    "total": 32,
+    "paired": 24,
+    "evaluations": 48,
+    "completed": 16,
+    "audits": 4,
+    "overturnRate": 0.25,
+    "medianSeconds": 130,
+    "criteria": [
+      {
+        "id": "rubric-v1:accuracy",
+        "name": "Accuracy",
+        "version": 1,
+        "pairs": 24,
+        "kappa": 0.5294117647058824,
+        "agreement": 0.6666666666666666
+      },
+      {
+        "id": "rubric-v1:helpfulness",
+        "name": "Helpfulness",
+        "version": 1,
+        "pairs": 24,
+        "kappa": 1,
+        "agreement": 1
+      },
+      {
+        "id": "rubric-v1:clarity",
+        "name": "Clarity",
+        "version": 1,
+        "pairs": 24,
+        "kappa": 1,
+        "agreement": 1
+      }
+    ]
+  }
+}
