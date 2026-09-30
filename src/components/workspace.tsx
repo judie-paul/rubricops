@@ -65,6 +65,7 @@ type Snapshot = {
       pairs: number;
       kappa: number | null;
       agreement: number | null;
+      raters: string[];
     }[];
   };
 };
@@ -414,7 +415,7 @@ export default function Workspace({ demo }: { demo: boolean }) {
                 <section className="panel agreement-panel">
                   <PanelTitle
                     title="How well are evaluators aligned?"
-                    subtitle="Unweighted Cohen’s κ · paired scores by rubric version"
+                    subtitle="Unweighted Cohen’s κ · by rubric version and evaluator pair"
                   />
                   <div className="chart-legend">
                     <i />
@@ -447,7 +448,12 @@ export default function Workspace({ demo }: { demo: boolean }) {
                           axisLine={false}
                           tickLine={false}
                         />
-                        <Tooltip cursor={{ fill: '#f3f6f3' }} />
+                        <Tooltip
+                          cursor={{ fill: '#f3f6f3' }}
+                          labelFormatter={(label, items) =>
+                            `${label} · ${(items[0]?.payload?.raters ?? []).join(' / ')}`
+                          }
+                        />
                         <Bar
                           dataKey="kappa"
                           name="Cohen’s κ"
@@ -469,6 +475,11 @@ export default function Workspace({ demo }: { demo: boolean }) {
                           κ{' '}
                           {c.kappa === null ? 'undefined' : c.kappa.toFixed(3)}
                         </span>
+                        <small>
+                          {c.raters.length
+                            ? c.raters.join(' / ')
+                            : 'No paired evaluators'}
+                        </small>
                         <small>
                           {c.pairs} pairs · {pct(c.agreement)} exact agreement
                         </small>
